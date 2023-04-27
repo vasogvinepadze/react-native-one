@@ -88,6 +88,7 @@ const MainCard = ({
   promotion = false,
   promQuant,
   promPrice,
+  distance,
 }) => {
   const [liked, setLiked] = useState(false);
   const [changedRating, setChangedRating] = useState(rating);
@@ -118,9 +119,16 @@ const MainCard = ({
       <CardBottom>
         <TitleWrapper>
           <Title>{title}</Title>
-          <SubTitle>
-            ${price} Delivery Fee • {time} min
-          </SubTitle>
+          {price && (
+            <SubTitle>
+              ${price} Delivery Fee • {time} min
+            </SubTitle>
+          )}
+          {distance && (
+            <SubTitle>
+              {time} min • {distance} mi
+            </SubTitle>
+          )}
         </TitleWrapper>
         <Rating>
           <RatingText>{changedRating}</RatingText>
