@@ -11,27 +11,27 @@ const Container = styled.View`
 
 const Text = styled.Text``;
 
-const UserName = styled.TextInput`
-  background-color: #edf2f4;
-  height: 50px;
-  border-radius: 16px;
-  width: 250px;
-  background-color: #ffebeb;
-  padding: 0 10px;
-  margin-bottom: 10px;
-  font-size: 17px;
-`;
+// const UserName = styled.TextInput`
+//   background-color: #edf2f4;
+//   height: 50px;
+//   border-radius: 16px;
+//   width: 250px;
+//   background-color: #ffebeb;
+//   padding: 0 10px;
+//   margin-bottom: 10px;
+//   font-size: 17px;
+// `;
 
-const Password = styled.TextInput`
-  height: 50px;
-  border-radius: 10px;
-  background-color: #ffebeb;
+// const Password = styled.TextInput`
+//   height: 50px;
+//   border-radius: 10px;
+//   background-color: #ffebeb;
 
-  width: 250px;
-  padding: 0 10px;
-  font-size: 17px;
-  margin-bottom: 10px;
-`;
+//   width: 250px;
+//   padding: 0 10px;
+//   font-size: 17px;
+//   margin-bottom: 10px;
+// `;
 
 const ActionBtn = styled(Button)`
   height: 50px;
@@ -84,10 +84,7 @@ const AuthForm = ({ title, navigation }) => {
         value={password}
       />
       <ActionBtn title="რეგისტრაცია" onPress={validate} />
-      <BackBtn
-        title="მთავარი მენიუ"
-        onPress={() => navigation.navigate("Login")}
-      />
+      <BackBtn title="მთავარი მენიუ" onPress={() => navigation.goBack()} />
       <Text>{emailError}</Text>
       <Text>{passwordError}</Text>
       <Text></Text>
