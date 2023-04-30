@@ -1,17 +1,18 @@
 import styled from "styled-components";
 import React, { useState } from "react";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { View, Text, Image, Pressable } from "react-native";
 
-const Container = styled.Pressable`
+const Container = styled(Pressable)`
   margin-bottom: 28px;
   position: relative;
 `;
 
-const CardImage = styled.Image``;
+const CardImage = styled(Image)``;
 
-const TitleWrapper = styled.View``;
+const TitleWrapper = styled(View)``;
 
-const Title = styled.Text`
+const Title = styled(Text)`
   font-style: normal;
   font-weight: 500;
   font-size: 16.5519px;
@@ -20,7 +21,7 @@ const Title = styled.Text`
   color: #000000;
 `;
 
-const SubTitle = styled.Text`
+const SubTitle = styled(Text)`
   font-style: normal;
   font-weight: 400;
   font-size: 14.4829px;
@@ -29,7 +30,7 @@ const SubTitle = styled.Text`
   color: #6b6b6b;
 `;
 
-const Rating = styled.View`
+const Rating = styled(View)`
   width: 28.38px;
   height: 27.21px;
   display: flex;
@@ -40,7 +41,7 @@ const Rating = styled.View`
   margin-top: 6px;
 `;
 
-const RatingText = styled.Text`
+const RatingText = styled(Text)`
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
@@ -49,13 +50,13 @@ const RatingText = styled.Text`
   color: #000000;
 `;
 
-const CardBottom = styled.View`
+const CardBottom = styled(View)`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 `;
 
-const Promotion = styled.View`
+const Promotion = styled(View)`
   border-bottom-right-radius: 25px;
   border-top-right-radius: 25px;
   width: 235px;
@@ -67,7 +68,7 @@ const Promotion = styled.View`
   justify-content: center;
   height: 25px;
 `;
-const PromotionText = styled.Text`
+const PromotionText = styled(Text)`
   color: #ffffff;
 `;
 
@@ -89,6 +90,7 @@ const MainCard = ({
   promQuant,
   promPrice,
   distance,
+  onPress,
 }) => {
   const [liked, setLiked] = useState(false);
   const [changedRating, setChangedRating] = useState(rating);
@@ -111,11 +113,12 @@ const MainCard = ({
   };
 
   return (
-    <Container>
+    <Container onPress={onPress}>
       <CardImage source={imgUrl} />
-      <LikeButton onPress={() => toggleLike}>
-        <LikeBtn likeIcon={{ color: "white", size: 22, focused: liked }} />
+      <LikeButton onPress={toggleLike}>
+        <LikeBtn likeIcon={{ color: "white", size: 24, focused: liked }} />
       </LikeButton>
+
       <CardBottom>
         <TitleWrapper>
           <Title>{title}</Title>

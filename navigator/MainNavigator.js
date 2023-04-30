@@ -8,6 +8,7 @@ import SignIn from "../src/components/screens/SignIn";
 import ForgotPassword from "../src/components/screens/ForgotPassword";
 import BottomTabNavigator from "./BottomTabNavigator";
 import DrawerNavigator from "./DrawerNavigator";
+import RestaurantDetails from "../src/components/screens/RestaurantDetails";
 
 const Stack = createNativeStackNavigator();
 
@@ -49,6 +50,11 @@ const MainNavigator = () => {
         <Stack.Screen
           name={ROUTES.DRAWER_NAVIGATOR}
           component={DrawerNavigator}
+          options={{ headerShown: false, title: "" }}
+        />
+        <Stack.Screen
+          name={ROUTES.REST_DETAILS}
+          component={RestaurantDetails}
           options={{ headerShown: false, title: "" }}
         />
       </Stack.Navigator>

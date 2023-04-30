@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import MainCard from "../organisms/MainCard";
 import Screen from "../atoms/Screen";
-import { FlatList } from "react-native";
+import { FlatList, ActivityIndicator } from "react-native";
 import CtgrBtn from "../atoms/CtgrBtn";
+import * as ROUTES from "../../constants/routes";
 
 const listToRender = [
   {
@@ -165,7 +166,8 @@ const Container = styled(Screen)`
 const SortConatinaer = styled.View``;
 
 const SortTopContainer = styled.View`
-  margin-right: 10px;
+  margin: 0 auto;
+  width: 300px;
   flex-direction: row;
 `;
 
@@ -178,6 +180,8 @@ const CategoryBtn = styled(CtgrBtn)`
 const SortBottom = styled.View`
   width: 280px;
   height: 25px;
+  margin: 5px auto;
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -192,10 +196,16 @@ const Location = styled.Text`
   text-align: center;
 `;
 
-const Home = () => {
-  const [ctgr, setCtgr] = useState(0);
+const LoadingSnipper = styled.View`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 
+const Home = ({ navigation }) => {
+  const [ctgr, setCtgr] = useState(0);
   const [data, setData] = useState([]);
+  const [loading, setIsLoading] = useState(false);
 
   const fetchData = () => {
     if (ctgr === 0) {
@@ -208,8 +218,12 @@ const Home = () => {
   };
 
   useEffect(() => {
-    fetchData();
-  });
+    setIsLoading(true);
+    setTimeout(() => {
+      fetchData();
+      setIsLoading(false);
+    }, 500);
+  }, []);
 
   const handlePress = (value) => {
     setCtgr(value);
@@ -223,43 +237,48 @@ const Home = () => {
 
   return (
     <Container>
-      <SortConatinaer>
-        <SortTopContainer>
-          {btns.map((item) => {
-            return (
-              <CategoryBtn
-                title={item.title}
-                onPress={() => handlePress(item.value)}
-                key={item.value}
-                light={item.value === ctgr ? true : false}
-              />
-            );
-          })}
-        </SortTopContainer>
-        <SortBottom>
-          <Location>Now • London Hall</Location>
-        </SortBottom>
-      </SortConatinaer>
+      {loading && <ActivityIndicator size="large" color="black" />}
+      <LoadingSnipper style={{ display: loading ? "none" : "flex" }}>
+        <SortConatinaer>
+          <SortTopContainer>
+            {btns.map((item) => {
+              return (
+                <CategoryBtn
+                  title={item.title}
+                  onPress={() => handlePress(item.value)}
+                  key={item.value}
+                  light={item.value === ctgr ? true : false}
+                />
+              );
+            })}
+          </SortTopContainer>
 
-      <FlatList
-        data={data}
-        renderItem={({ item }) => (
-          <MainCard
-            key={item.id}
-            imgUrl={item.imgUrl}
-            title={item.title}
-            price={ctgr === 0 ? item.price : ""}
-            distance={ctgr === 1 ? item.distance : ""}
-            time={item.time}
-            rating={item.rating}
-            promotion={ctgr === 0 ? item.promotion : ""}
-            promQuant={item.promQuant}
-            promPrice={item.promPrice}
-          />
-        )}
-        keyExtractor={(item) => item.id}
-        showsVerticalScrollIndicator={false}
-      />
+          <SortBottom>
+            <Location>Now • London Hall</Location>
+          </SortBottom>
+        </SortConatinaer>
+
+        <FlatList
+          data={data}
+          renderItem={({ item }) => (
+            <MainCard
+              key={item.id}
+              imgUrl={item.imgUrl}
+              title={item.title}
+              price={ctgr === 0 ? item.price : ""}
+              distance={ctgr === 1 ? item.distance : ""}
+              time={item.time}
+              rating={item.rating}
+              promotion={ctgr === 0 ? item.promotion : ""}
+              promQuant={item.promQuant}
+              promPrice={item.promPrice}
+              onPress={() => navigation.navigate(ROUTES.REST_DETAILS)}
+            />
+          )}
+          keyExtractor={(item) => item.id}
+          showsVerticalScrollIndicator={false}
+        />
+      </LoadingSnipper>
     </Container>
   );
 };

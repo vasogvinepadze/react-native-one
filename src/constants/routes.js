@@ -16,3 +16,4 @@ export const ORDERS_SCREEN = "OrderScreen";
 export const SHOP_SCREEN = "ShopScreen";
 export const SETTINGS_SCREEN = "SettingsScreen";
 export const SETTINGS_DETAILS = "SettingDetails";
+export const REST_DETAILS = "RestaurantDetails";
