@@ -13,18 +13,23 @@ const data = {
   },
   mostPopular: [
     {
+      id: "1",
       title: "McMushroom Pizza",
       price: "US $21.00",
       desc: "Garlic, olive oil base, mozarella,cremini mushrooms, ricotta, thyme, white truffle oil. Addarugula for an extra charge",
       imgUrl: require("../images/Pizza/Pizza.png"),
     },
     {
+      id: "2",
+
       title: "Broken Mush Pizza",
       price: "US $18.00",
       desc: "Hot peppers, mozzarella, spicy marinara, spicy sporessata and picante infused olive oil",
       imgUrl: require("../images/Pizza/Pizza2.png"),
     },
     {
+      id: "3",
+
       title: "Margarita Pizza",
       price: "US $20.00",
       desc: "Whole milk mozarrela pearls,mozarrela, arinara, shavedParmesan, fresh basil and extravirgin olive oil",
@@ -205,6 +210,7 @@ const RestaurantDetails = () => {
               price={item.price}
               desc={item.desc}
               imgUrl={item.imgUrl}
+              key={item.id}
             />
           );
         })}
