@@ -1,7 +1,7 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import * as ROUTES from "../src/constants/routes";
 import Home from "../src/components/screens/Home";
-import Orders from "../src/components/screens/Orders";
+import Browse from "../src/components/screens/Browse";
 import Shop from "../src/components/screens/Shop";
 import SettingsNavigator from "./SettingsNavigator";
 import BottomTabNavigator from "./BottomTabNavigator";
@@ -22,8 +22,8 @@ function DrawerNavigator() {
         options={{ title: "Home" }}
       />
       <Drawer.Screen
-        name={ROUTES.ORDERS_SCREEN}
-        component={Orders}
+        name={ROUTES.BROWSE_SCREEN}
+        component={Browse}
         options={{ title: "Order" }}
       />
       <Drawer.Screen

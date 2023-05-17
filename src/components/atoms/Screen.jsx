@@ -19,6 +19,7 @@ const Container = styled.SafeAreaView`
   align-items: center;
   justify-content: center;
   height: 100%;
+  background-color: #ffffff;
 `;
 
 const Screen = ({ children }) => {
