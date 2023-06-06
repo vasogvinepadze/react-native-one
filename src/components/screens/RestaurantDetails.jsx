@@ -4,41 +4,12 @@ import styled from "styled-components";
 import Screen from "../atoms/Screen";
 import RestDetailsCard from "../organisms/RestDetailsCard";
 
-const data = {
-  Restaurnat: {
-    name: "Lanespan Pizza & Pub (Emeryville)",
-    rating: "4.6",
-    ratingQuantity: "300",
-    workingHours: "Open until 3:00 AM",
-  },
-  mostPopular: [
-    {
-      id: "1",
-      title: "McMushroom Pizza",
-      price: "US $21.00",
-      desc: "Garlic, olive oil base, mozarella,cremini mushrooms, ricotta, thyme, white truffle oil. Addarugula for an extra charge",
-      imgUrl: require("../images/Pizza/Pizza.png"),
-    },
-    {
-      id: "2",
+import * as ROUTES from "../../constants/routes";
+import { log } from "react-native-reanimated";
 
-      title: "Broken Mush Pizza",
-      price: "US $18.00",
-      desc: "Hot peppers, mozzarella, spicy marinara, spicy sporessata and picante infused olive oil",
-      imgUrl: require("../images/Pizza/Pizza2.png"),
-    },
-    {
-      id: "3",
+const MainContainer = styled.Pressable``;
 
-      title: "Margarita Pizza",
-      price: "US $20.00",
-      desc: "Whole milk mozarrela pearls,mozarrela, arinara, shavedParmesan, fresh basil and extravirgin olive oil",
-      imgUrl: require("../images/Pizza/Pizza3.png"),
-    },
-  ],
-};
-
-const Container = styled(ScrollView)`
+const Container = styled.ScrollView`
   background: #ffffff;
 `;
 
@@ -159,8 +130,42 @@ const ratingImage = require("../images/star.png");
 const arrowRight = require("../images/Chevron-Down.png");
 const group = require("../images/Group.png");
 
-const RestaurantDetails = () => {
-  const rest = data.Restaurnat;
+const RestaurantDetails = ({ navigation, onPress }) => {
+  const data = {
+    RestaurnatName: {
+      name: "Lanespan Pizza & Pub (Emeryville)",
+      rating: "4.6",
+      ratingQuantity: "300",
+      workingHours: "Open until 3:00 AM",
+    },
+    mostPopular: [
+      {
+        id: 0,
+        title: "McMushroom Pizza",
+        price: 21.0,
+        desc: "Garlic, olive oil base, mozarella,cremini mushrooms, ricotta, thyme, white truffle oil. Addarugula for an extra charge",
+        imgUrl: require("../images/Pizza/Pizza.png"),
+        // handlePress: () => navigation.navigate(ROUTES.ORDER_SCREEN),
+      },
+      {
+        id: 1,
+
+        title: "Broken Mush Pizza",
+        price: "US $18.00",
+        desc: "Hot peppers, mozzarella, spicy marinara, spicy sporessata and picante infused olive oil",
+        imgUrl: require("../images/Pizza/Pizza2.png"),
+      },
+      {
+        id: 2,
+        title: "Margarita Pizza",
+        price: "US $20.00",
+        desc: "Whole milk mozarrela pearls,mozarrela, arinara, shavedParmesan, fresh basil and extravirgin olive oil",
+        imgUrl: require("../images/Pizza/Pizza3.png"),
+      },
+    ],
+  };
+
+  const rest = data.RestaurnatName;
 
   const calcRaiting = (num) => {
     if (num > 200) {
@@ -170,51 +175,59 @@ const RestaurantDetails = () => {
     }
   };
   return (
-    <Container>
-      <MainImg source={require("../images/MainPic.png")} />
-      <GoogleMap source={require("../images/googlemap.png")} />
+    <Container contentContainerStyle={{ paddingBottom: 400 }}>
+      <MainContainer onPress={onPress}>
+        <MainImg source={require("../images/MainPic.png")} />
+        <GoogleMap source={require("../images/googlemap.png")} />
 
-      <HeaderContainer>
-        <RestTitle>{rest.name}</RestTitle>
-        <InfoContainer>
-          <View>
-            <Image source={ratingImage} />
-          </View>
-          <RestInfo>
-            {rest.rating}
-            {calcRaiting(rest.ratingQuantity)} •Pizza• $$
-          </RestInfo>
-        </InfoContainer>
+        <HeaderContainer>
+          <RestTitle>{rest.name}</RestTitle>
+          <InfoContainer>
+            <View>
+              <Image source={ratingImage} />
+            </View>
+            <RestInfo>
+              {rest.rating}
+              {calcRaiting(rest.ratingQuantity)} •Pizza• $$
+            </RestInfo>
+          </InfoContainer>
 
-        <Arrow>
-          <Text>{rest.workingHours}</Text>
-          <Image source={arrowRight} />
-        </Arrow>
-        <Group>
-          <GroupTitle>
-            <Image source={group} />
-            Group Order
-          </GroupTitle>
-        </Group>
-        <Delivery>
-          <DeliveryRight>Delivery 25 - 35 min 1.7mi</DeliveryRight>
-          <DeliveryLeft>Pickup 5 - 15 min 1.7mi</DeliveryLeft>
-        </Delivery>
-      </HeaderContainer>
-      <SectionContainer>
-        <Popular>Most Popular</Popular>
-        {data.mostPopular.map((item) => {
-          return (
-            <RestDetailsCard
-              title={item.title}
-              price={item.price}
-              desc={item.desc}
-              imgUrl={item.imgUrl}
-              key={item.id}
-            />
-          );
-        })}
-      </SectionContainer>
+          <Arrow>
+            <Text>{rest.workingHours}</Text>
+            <Image source={arrowRight} />
+          </Arrow>
+          <Group>
+            <GroupTitle>
+              <Image source={group} />
+              Group Order
+            </GroupTitle>
+          </Group>
+          <Delivery>
+            <DeliveryRight>Delivery 25 - 35 min 1.7mi</DeliveryRight>
+            <DeliveryLeft>Pickup 5 - 15 min 1.7mi</DeliveryLeft>
+          </Delivery>
+        </HeaderContainer>
+        <SectionContainer>
+          <Popular>Most Popular</Popular>
+          {data.mostPopular.map((item) => {
+            return (
+              <RestDetailsCard
+                title={item.title}
+                price={item.price}
+                desc={item.desc}
+                imgUrl={item.imgUrl}
+                key={item.id}
+                onPress={() =>
+                  navigation.navigate(ROUTES.ORDER_SCREEN, {
+                    ...item,
+                    RestaurnatName: rest.name,
+                  })
+                }
+              />
+            );
+          })}
+        </SectionContainer>
+      </MainContainer>
     </Container>
   );
 };

@@ -40,7 +40,12 @@ const orderIcon = require("../images/shopingCart/Order.png");
 const shopCardTest = require("../images/shopingCart/Rectangle.png");
 const shopcarTestTwo = require("../images/shopingCart/Rectangle1.png");
 
-const Container = styled(Screen)``;
+const Container = styled.View`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+`;
 
 const InnerContainer = styled.View`
   display: flex;
@@ -107,7 +112,7 @@ const Shop = () => {
   return (
     <Container>
       <Cart>Cart</Cart>
-      <OrderBtn title="Orders" light iconLeft={orderIcon} />
+      <OrderBtn title="Orders" iconLeft={orderIcon} light />
       {!data ? (
         <InnerContainer>
           <Image source={require("../images/shopingCart/Group.png")} />

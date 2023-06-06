@@ -1,6 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { View, Text } from "react-native";
+import { Host } from "react-native-portalize";
 
 import * as ROUTES from "../src/constants/routes";
 // import BottomTabNavigator from "./BottomTabNavigator";
@@ -11,14 +12,15 @@ import DrawerNavigator from "./DrawerNavigator";
 import RestaurantDetails from "../src/components/screens/RestaurantDetails";
 import Deals from "../src/components/screens/Deals";
 
-import { Host } from "react-native-portalize";
+import OrderCard from "../src/components/screens/OrderCard";
+import DeliveryDetails from "../src/components/screens/DeliveryDetails";
+import Grocery from "../src/components/screens/Grocery";
 
 const Stack = createNativeStackNavigator();
 
 function SignUp({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Home vaso</Text>
       <Button title="Go To Back" light onPress={() => navigation.goBack()} />
       <Button
         title="Finish shop"
@@ -65,6 +67,21 @@ const MainNavigator = () => {
             name={ROUTES.DEALS_SCREEN}
             component={Deals}
             options={{ headerShown: false, title: "" }}
+          />
+          <Stack.Screen
+            name={ROUTES.ORDER_SCREEN}
+            component={OrderCard}
+            options={{ headerShown: true, title: "Order Details" }}
+          />
+          <Stack.Screen
+            name={ROUTES.DELIVERY_DETAILS}
+            component={DeliveryDetails}
+            options={{ title: "Delivery Details", headerShown: true }}
+          />
+          <Stack.Screen
+            name={ROUTES.GROCERY_SCREEN}
+            component={Grocery}
+            options={{ title: "Delivery Details", headerShown: true }}
           />
         </Stack.Navigator>
       </Host>

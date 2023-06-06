@@ -10,7 +10,6 @@ const Container = styled.Pressable`
   align-items: center;
   background-color: ${({ light }) => (light ? "#EEEEEE" : "#000000")};
   flex-direction: row;
-  /* padding: 0 20px 0 20px; */
 `;
 
 const Title = styled.Text`

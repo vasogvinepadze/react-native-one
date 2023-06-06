@@ -8,7 +8,12 @@ import LoginScreenImage from "../images/LoginScreenImage";
 import Button from "../atoms/Button";
 import Screen from "../atoms/Screen";
 
-const Container = styled(Screen)``;
+const Container = styled.View`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+`;
 
 const Image = styled(LoginScreenImage)`
   margin-bottom: 40px;

@@ -2,7 +2,7 @@ import { View, Text, Image } from "react-native";
 import React from "react";
 import styled from "styled-components";
 
-const Container = styled.View`
+const Container = styled.Pressable`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -44,9 +44,9 @@ const Desc = styled.Text`
   color: #545454;
 `;
 
-const RestDetailsCard = ({ title, price, desc, imgUrl }) => {
+const RestDetailsCard = ({ title, price, desc, imgUrl, onPress }) => {
   return (
-    <Container>
+    <Container onPress={onPress}>
       <RightContainer>
         {title && <Title>{title}</Title>}
         {price && <SubTitle>{price}</SubTitle>}
