@@ -7,14 +7,11 @@ const Container = styled.Pressable`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-
   padding-bottom: 50px;
 `;
 
 const Wrapper = styled.View`
   padding-left: 5px;
-
-
 `;
 
 const Cont = styled.View`
@@ -23,8 +20,6 @@ const Cont = styled.View`
   justify-content: space-around;
   flex-direction: row;
 `;
-
-
 
 const LeftContainer = styled.View`
   align-items: center;
