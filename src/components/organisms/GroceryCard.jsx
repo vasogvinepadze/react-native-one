@@ -1,4 +1,4 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, TextInput } from "react-native";
 import React from "react";
 import styled from "styled-components";
 
@@ -9,11 +9,9 @@ const Container = styled.Pressable`
 `;
 const GroceryCard = ({ onPress, imgUrl, deliveryTime, color }) => {
   return (
-    <Container onPress={onPress} color={color}>
+    <Container onPress={onPress}>
       <Image source={imgUrl} />
-      <View>
-        <Text>In {deliveryTime} Minutes</Text>
-      </View>
+      <View></View>
     </Container>
   );
 };

@@ -27,7 +27,8 @@ const TypeContainer = styled.View`
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
-  margin-top: 10px;
+  margin: 0 24px;
+  margin-top: 15px;
 `;
 
 const Delivery = styled.View`

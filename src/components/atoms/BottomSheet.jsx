@@ -1,15 +1,18 @@
-import { View, Text } from "react-native";
 import React from "react";
 import styled from "styled-components";
 import { Modalize } from "react-native-modalize";
 
 const Container = styled(Modalize)``;
-const ContainerView = styled.View``;
+const ContainerView = styled.View`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 const ContainerTitle = styled.Text``;
 
 const BottomSheet = ({ bottomSheetRef, children }) => {
   return (
-    <Container ref={bottomSheetRef}>
+    <Container ref={bottomSheetRef} modalHeight={555}>
       <ContainerView>
         <ContainerTitle>{children}</ContainerTitle>
       </ContainerView>

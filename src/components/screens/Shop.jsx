@@ -108,7 +108,7 @@ const DataCont = styled.View`
 `;
 
 const Shop = () => {
-  const [data, setData] = useState(fakeData);
+  const [data, setData] = useState(!fakeData);
   return (
     <Container>
       <Cart>Cart</Cart>

@@ -52,33 +52,33 @@ const Browse = ({ navigation }) => {
   const browseList = [
     {
       id: 0,
-      title: "Coffee & tea",
+
       imgUrl: require("../images/topCategories/Category-4.png"),
     },
     {
       id: 1,
-      title: "Restaurant Rewards",
+
       imgUrl: require("../images/topCategories/Category-1.png"),
     },
     {
       id: 2,
-      title: "Shipped free",
+
       imgUrl: require("../images/topCategories/Category-2.png"),
     },
     {
       id: 3,
-      title: "Best overall",
+
       imgUrl: require("../images/topCategories/Category-3.png"),
     },
     {
       id: 4,
-      title: "Coffee & tea",
+
       imgUrl: require("../images/topCategories/Category-4.png"),
       handlePress: () => navigation.navigate(ROUTES.DEALS_SCREEN, { page: 1 }),
     },
     {
       id: 5,
-      title: "Deals",
+
       imgUrl: require("../images/topCategories/Category.png"),
       handlePress: () => navigation.navigate(ROUTES.DEALS_SCREEN, { page: 2 }),
     },

@@ -15,6 +15,8 @@ import Deals from "../src/components/screens/Deals";
 import OrderCard from "../src/components/screens/OrderCard";
 import DeliveryDetails from "../src/components/screens/DeliveryDetails";
 import Grocery from "../src/components/screens/Grocery";
+import RegisterScreen from "../src/components/screens/RegisterScreen";
+import Convenience from "../src/components/screens/Convenience";
 
 const Stack = createNativeStackNavigator();
 
@@ -54,6 +56,11 @@ const MainNavigator = () => {
           />
 
           <Stack.Screen
+            name={ROUTES.REGISTER_SCREEN}
+            component={RegisterScreen}
+            options={{ title: "Sign Up", headerShown: true }}
+          />
+          <Stack.Screen
             name={ROUTES.DRAWER_NAVIGATOR}
             component={DrawerNavigator}
             options={{ headerShown: false, title: "" }}
@@ -82,6 +89,11 @@ const MainNavigator = () => {
             name={ROUTES.GROCERY_SCREEN}
             component={Grocery}
             options={{ title: "Delivery Details", headerShown: true }}
+          />
+          <Stack.Screen
+            name={ROUTES.CONVENIENCE_SCREEN}
+            component={Convenience}
+            options={{ title: "", headerShown: true }}
           />
         </Stack.Navigator>
       </Host>

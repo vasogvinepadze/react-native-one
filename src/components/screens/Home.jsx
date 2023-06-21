@@ -490,212 +490,209 @@ const Home = ({ navigation }) => {
   ];
 
   return (
-    <MainContainer>
-      <Container contentContainerStyle={{ paddingBottom: 200 }}>
-        {loading && <ActivityIndicator size="large" color="green" />}
-
-        <LoadingSnipper style={{ display: loading ? "none" : "flex" }}>
-          <SortConatinaer>
-            <SortTopContainer>
-              {btns.map((item) => {
-                return (
-                  <CategoryBtn
-                    title={item.title}
-                    onPress={() => handlePress(item.value)}
-                    key={item.value}
-                    light={item.value === ctgr ? false : true}
-                  />
-                );
-              })}
-            </SortTopContainer>
-
-            <SortBottom>
-              <Location>Now • London Hall</Location>
-            </SortBottom>
-            <HomeContainer>
-              <View
-                style={{
-                  width: 90,
-                  height: 90,
-                  backgroundColor: "rgba(230, 230, 230, 0.4);",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  borderRadius: 6,
-                }}
-              >
-                <HomeCtgrImage source={firstimage} />
-                <HomeCtgrTitle>Convenience</HomeCtgrTitle>
-              </View>
-              <View
-                style={{
-                  width: 90,
-                  height: 90,
-                  backgroundColor: "rgba(230, 230, 230, 0.4);",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  borderRadius: 6,
-                }}
-              >
-                <HomeCtgrImage source={firstimageTwo} />
-                <HomeCtgrTitle>Alcohol</HomeCtgrTitle>
-              </View>
-
-              <View
-                style={{
-                  width: 90,
-                  height: 90,
-                  backgroundColor: "rgba(230, 230, 230, 0.4);",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  borderRadius: 6,
-                }}
-              >
-                <HomeCtgrImage source={firstimageThree} />
-                <HomeCtgrTitle>Pet Supplies</HomeCtgrTitle>
-              </View>
-
-              <View
-                style={{
-                  width: 78,
-                  height: 70,
-                  backgroundColor: "rgba(230, 230, 230, 0.4);",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  borderRadius: 6,
-                }}
-              >
-                <HomeCtgrImage source={firstimageFour} />
-                <HomeCtgrTitle onPress={() => categorySheetRef.current.open()}>
-                  More
-                </HomeCtgrTitle>
-              </View>
-            </HomeContainer>
-          </SortConatinaer>
-
-          {data.map((item) => {
-            return (
-              <MainCard
-                key={item.id}
-                imgUrl={item.imgUrl}
-                title={item.title}
-                price={ctgr === 0 ? item.price : ""}
-                distance={ctgr === 1 ? item.distance : ""}
-                time={item.time}
-                rating={item.rating}
-                promotion={ctgr === 0 ? item.promotion : ""}
-                promQuant={item.promQuant}
-                promPrice={item.promPrice}
-                onPress={() => navigation.navigate(ROUTES.REST_DETAILS)}
-              />
-            );
-          })}
-
-          <Portal>
-            <BottomSheet bottomSheetRef={categorySheetRef}>
-              <Button
-                title="Close"
-                onPress={() => categorySheetRef.current.close()}
-              />
-
-              <BottomSheetCategoryImg>
-                <Text
-                  style={{
-                    display: "flex",
-                    flexWrap: "wrap",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                  }}
-                >
-                  {bottomSheetCategory.map((item) => {
-                    return <CategoryCard key={item.id} imgUrl={item.imgUrl} />;
-                  })}
-                </Text>
-              </BottomSheetCategoryImg>
-            </BottomSheet>
-          </Portal>
-
-          <ScrollHorizontal
-            style={{ paddingHorizontal: 25 }}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-          >
-            {scroll.map((item) => {
-              return <MainCard key={item.id} imgUrl={item.imgUrl} />;
+    <Container contentContainerStyle={{ paddingBottom: 200 }}>
+      {loading && <ActivityIndicator size="large" color="red" />}
+      <LoadingSnipper style={{ display: loading ? "none" : "flex" }}>
+        <SortConatinaer>
+          <SortTopContainer>
+            {btns.map((item) => {
+              return (
+                <CategoryBtn
+                  title={item.title}
+                  onPress={() => handlePress(item.value)}
+                  key={item.value}
+                  light={item.value === ctgr ? false : true}
+                />
+              );
             })}
-          </ScrollHorizontal>
-          {deli.map((item) => {
-            return (
-              <MainCard
-                key={item.id}
-                imgUrl={item.imgUrl}
-                title={item.title}
-                price={ctgr === 0 ? item.price : ""}
-                distance={ctgr === 1 ? item.distance : ""}
-                time={item.time}
-                rating={item.rating}
-                promotion={ctgr === 0 ? item.promotion : ""}
-                promQuant={item.promQuant}
-                promPrice={item.promPrice}
-                onPress={() => navigation.navigate(ROUTES.REST_DETAILS)}
-              />
-            );
+          </SortTopContainer>
+
+          <SortBottom>
+            <Location>Now • London Hall</Location>
+          </SortBottom>
+          <HomeContainer>
+            <View
+              style={{
+                width: 90,
+                height: 90,
+                backgroundColor: "rgba(230, 230, 230, 0.4);",
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: 6,
+              }}
+            >
+              <HomeCtgrImage source={firstimage} />
+              <HomeCtgrTitle
+                onPress={() => navigation.navigate(ROUTES.CONVENIENCE_SCREEN)}
+              >
+                Convenience
+              </HomeCtgrTitle>
+            </View>
+            <View
+              style={{
+                width: 90,
+                height: 90,
+                backgroundColor: "rgba(230, 230, 230, 0.4);",
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: 6,
+              }}
+            >
+              <HomeCtgrImage source={firstimageTwo} />
+              <HomeCtgrTitle>Alcohol</HomeCtgrTitle>
+            </View>
+
+            <View
+              style={{
+                width: 90,
+                height: 90,
+                backgroundColor: "rgba(230, 230, 230, 0.4);",
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: 6,
+              }}
+            >
+              <HomeCtgrImage source={firstimageThree} />
+              <HomeCtgrTitle>Pet Supplies</HomeCtgrTitle>
+            </View>
+
+            <View
+              style={{
+                width: 78,
+                height: 70,
+                backgroundColor: "rgba(230, 230, 230, 0.4);",
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: 6,
+              }}
+            >
+              <HomeCtgrImage source={firstimageFour} />
+              <HomeCtgrTitle onPress={() => categorySheetRef.current.open()}>
+                More
+              </HomeCtgrTitle>
+            </View>
+          </HomeContainer>
+        </SortConatinaer>
+        {data.map((item) => {
+          return (
+            <MainCard
+              key={item.id}
+              imgUrl={item.imgUrl}
+              title={item.title}
+              price={ctgr === 0 ? item.price : ""}
+              distance={ctgr === 1 ? item.distance : ""}
+              time={item.time}
+              rating={item.rating}
+              promotion={ctgr === 0 ? item.promotion : ""}
+              promQuant={item.promQuant}
+              promPrice={item.promPrice}
+              onPress={() => navigation.navigate(ROUTES.REST_DETAILS)}
+            />
+          );
+        })}
+        <Portal>
+          <BottomSheet bottomSheetRef={categorySheetRef}>
+            <Button
+              title="Close"
+              onPress={() => categorySheetRef.current.close()}
+            />
+
+            <BottomSheetCategoryImg>
+              <Text
+                style={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                {bottomSheetCategory.map((item) => {
+                  return <CategoryCard key={item.id} imgUrl={item.imgUrl} />;
+                })}
+              </Text>
+            </BottomSheetCategoryImg>
+          </BottomSheet>
+        </Portal>
+        <ScrollHorizontal
+          style={{ paddingHorizontal: 25 }}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+        >
+          {scroll.map((item) => {
+            return <MainCard key={item.id} imgUrl={item.imgUrl} />;
           })}
-          <Population>
-            <PopulationTitle>Popular Near you</PopulationTitle>
-            <SeeAll>See all</SeeAll>
-          </Population>
-          <ScrollHorizontal
-            style={{ paddingHorizontal: 25 }}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-          >
-            {scroll.map((item) => {
-              return <MainCard key={item.id} imgUrl={item.imgUrl} />;
-            })}
-          </ScrollHorizontal>
-          {deliveryTwo.map((item) => {
-            return (
-              <MainCard
-                key={item.id}
-                imgUrl={item.imgUrl}
-                title={item.title}
-                price={ctgr === 0 ? item.price : ""}
-                distance={ctgr === 1 ? item.distance : ""}
-                time={item.time}
-                rating={item.rating}
-                promotion={ctgr === 0 ? item.promotion : ""}
-                promQuant={item.promQuant}
-                promPrice={item.promPrice}
-                onPress={() => navigation.navigate(ROUTES.REST_DETAILS)}
-              />
-            );
+        </ScrollHorizontal>
+        {deli.map((item) => {
+          return (
+            <MainCard
+              key={item.id}
+              imgUrl={item.imgUrl}
+              title={item.title}
+              price={ctgr === 0 ? item.price : ""}
+              distance={ctgr === 1 ? item.distance : ""}
+              time={item.time}
+              rating={item.rating}
+              promotion={ctgr === 0 ? item.promotion : ""}
+              promQuant={item.promQuant}
+              promPrice={item.promPrice}
+              onPress={() => navigation.navigate(ROUTES.REST_DETAILS)}
+            />
+          );
+        })}
+        <Population>
+          <PopulationTitle>Popular Near you</PopulationTitle>
+          <SeeAll>See all</SeeAll>
+        </Population>
+        <ScrollHorizontal
+          style={{ paddingHorizontal: 25 }}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+        >
+          {scroll.map((item) => {
+            return <MainCard key={item.id} imgUrl={item.imgUrl} />;
           })}
+        </ScrollHorizontal>
+        {deliveryTwo.map((item) => {
+          return (
+            <MainCard
+              key={item.id}
+              imgUrl={item.imgUrl}
+              title={item.title}
+              price={ctgr === 0 ? item.price : ""}
+              distance={ctgr === 1 ? item.distance : ""}
+              time={item.time}
+              rating={item.rating}
+              promotion={ctgr === 0 ? item.promotion : ""}
+              promQuant={item.promQuant}
+              promPrice={item.promPrice}
+              onPress={() => navigation.navigate(ROUTES.REST_DETAILS)}
+            />
+          );
+        })}
+        <CtgrFood>
+          <CtgrFoodTitle>
+            Carribean
+            <Image source={require("../images/CategoryFood/asian.png")} />
+          </CtgrFoodTitle>
 
-          <CtgrFood>
-            <CtgrFoodTitle>
-              Carribean
-              <Image source={require("../images/CategoryFood/asian.png")} />
-            </CtgrFoodTitle>
+          <CtgrFoodTitleTwo>
+            Asian
+            <Image source={require("../images/CategoryFood/Indian.png")} />
+          </CtgrFoodTitleTwo>
+        </CtgrFood>
+        <CtgrFood>
+          <CtgrFoodTitle>
+            Pizza
+            <Image source={require("../images/CategoryFood/pizza.png")} />
+          </CtgrFoodTitle>
 
-            <CtgrFoodTitleTwo>
-              Asian
-              <Image source={require("../images/CategoryFood/Indian.png")} />
-            </CtgrFoodTitleTwo>
-          </CtgrFood>
-          <CtgrFood>
-            <CtgrFoodTitle>
-              Pizza
-              <Image source={require("../images/CategoryFood/pizza.png")} />
-            </CtgrFoodTitle>
-
-            <CtgrFoodTitleTwo>
-              Asian
-              <Image source={require("../images/CategoryFood/asian.png")} />
-            </CtgrFoodTitleTwo>
-          </CtgrFood>
-        </LoadingSnipper>
-      </Container>
-    </MainContainer>
+          <CtgrFoodTitleTwo>
+            Asian
+            <Image source={require("../images/CategoryFood/asian.png")} />
+          </CtgrFoodTitleTwo>
+        </CtgrFood>
+      </LoadingSnipper>
+    </Container>
   );
 };
 

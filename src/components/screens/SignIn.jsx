@@ -93,10 +93,12 @@ const SignIn = ({ navigation }) => {
       </SignUpContainer>
 
       <SignUpContainer>
-        <Text>Don't have an account?</Text>
-        <Pressable>
-          <SignUpButton>Sign Up</SignUpButton>
-        </Pressable>
+        <Text>Don't have an account ? </Text>
+        <SignUpButton
+          onPress={() => navigation.navigate(ROUTES.REGISTER_SCREEN)}
+        >
+          Sign Up
+        </SignUpButton>
       </SignUpContainer>
     </Container>
   );

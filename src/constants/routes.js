@@ -22,3 +22,6 @@ export const DEALS_SCREEN = "Deals";
 export const ORDER_SCREEN = "OrderScreen";
 export const DELIVERY_DETAILS = "DeliveryDetails";
 export const GROCERY_SCREEN = "GroceryScreen";
+export const REGISTER_SCREEN = "RegisterScreen";
+
+export const CONVENIENCE_SCREEN = "Convenience";

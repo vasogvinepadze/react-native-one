@@ -305,7 +305,7 @@ const OrderCard = ({ route, onPress, navigation }) => {
         </CtgrButton>
 
         <Portal>
-          <BottomSheet bottomSheetRef={categorySheetRef}>
+          <BottomSheet bottomSheetRef={categorySheetRef} modalHeight={555}>
             <Button
               title="Close"
               onPress={() => categorySheetRef.current.close()}
