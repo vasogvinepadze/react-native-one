@@ -439,7 +439,7 @@ const HomeCtgrImage = styled.Image``;
 const HomeCtgrTitle = styled.Text`
   font-style: normal;
   font-weight: 500;
-  font-size: 15px;
+  font-size: 14px;
   line-height: 21px;
 
   text-align: center;
