@@ -1,169 +1,177 @@
-import { View, Text, Button } from "react-native";
-import React from "react";
+import {
+  View,
+  Text,
+  Button,
+  TextInput,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Screen from "../atoms/Screen";
 import * as ROUTES from "../../constants/routes";
+import { Ionicons } from "@expo/vector-icons";
+import { authentication, dataBase } from "../../../Firebaseconfig";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
+import uuid from "react-native-uuid";
+
 const Container = styled(Screen)``;
-const ScrollContainer = styled.ScrollView`
-  padding: 10px 26px;
-`;
-const MainWrapper = styled.View``;
-
-const Title = styled.Text`
-  font-style: normal;
-  font-weight: 600;
-  font-size: 32px;
-  line-height: 70%;
-  color: #1f5460;
-`;
-
-const MiniTitle = styled.Text`
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 20px;
-
-  color: #879ea4;
-`;
-const Register = styled.View`
-  margin-top: 90px;
-  gap: 10px;
-  align-items: center;
-  margin-bottom: 50px;
-`;
-const Email = styled.TextInput`
-  width: 319px;
-  height: 50px;
-  border: 1px solid rgba(31, 84, 96, 0.2);
-  border-radius: 4px;
-  padding: 0 10px;
-`;
-
-const EmailAdd = styled.TextInput`
-  width: 319px;
-  height: 50px;
-  border: 1px solid rgba(31, 84, 96, 0.2);
-  border-radius: 4px;
-  padding: 0 10px;
-`;
-
-const Pass = styled.TextInput`
-  width: 319px;
-  height: 50px;
-  border: 1px solid rgba(31, 84, 96, 0.2);
-  border-radius: 4px;
-  padding: 0 10px;
-`;
-const ConfirmPass = styled.TextInput`
-  width: 319px;
-  height: 50px;
-  border: 1px solid rgba(31, 84, 96, 0.2);
-  border-radius: 4px;
-  padding: 0 10px;
-`;
-
-const SignUp = styled.View`
-  width: 319px;
-  height: 50px;
-  align-items: center;
-  justify-content: center;
-  margin: 15px 28px;
-  background: #ffca42;
-  border-radius: 100px;
-`;
-const SignTitle = styled.Text`
-  font-style: normal;
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 20px;
-  text-align: center;
-  color: #10405a;
-`;
-
-const SignApple = styled.View`
-  width: 319px;
-  height: 50px;
-  justify-content: center;
-  align-items: center;
-  margin: 0 28px;
-  background: #000000;
-  border-radius: 100px;
-`;
-const AppleTitle = styled.Text`
-  font-style: normal;
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 20px;
-  text-align: center;
-
-  color: #ffffff;
-`;
-
-const SignGoogle = styled.View`
-  width: 319px;
-  height: 50px;
-  align-items: center;
-  justify-content: center;
-  background: #f0f5f2;
-  border-radius: 100px;
-  margin: 15px 26px;
-`;
-
-const GoogleTitle = styled.Text`
-  font-style: normal;
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 20px;
-  text-align: center;
-  color: #10405a;
-`;
-
-const Already = styled.View``;
-const AlreadyTitle = styled.Text`
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 18px;
-  padding: 50px 0;
-  text-align: center;
-  color: #1f5460;
-`;
 
 const RegisterScreen = ({ navigation }) => {
+  const [isVisible, setIsVisible] = useState(true);
+
+  const [userCrendetials, setUserCrendetials] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const { email, password, name } = userCrendetials;
+
+  const uid = uuid.v4();
+  const userAccount = () => {
+    createUserWithEmailAndPassword(authentication, email, password)
+      .then(() => {
+        navigation.navigate(ROUTES.SIGN_IN_SCREEN);
+        Alert.alert("თქვენ წარმატებით დარეგისტრირდით");
+        setDoc(doc(dataBase, "users", uid), {
+          username: name,
+          email: email,
+          id: authentication.currentUser.uid,
+        });
+      })
+      .catch((error) => {
+        if (error.code === "auth/email-already-in-use") {
+          Alert.alert("მაილი უკვე დარეგისტრირებულია");
+        }
+
+        if (error.code === "auth/invalid-email") {
+          console.log("That email address is invalid!");
+        }
+
+        console.error(error);
+      });
+  };
+
   return (
     <Container>
-      <ScrollContainer>
-        <MainWrapper>
-          <Title>Create account</Title>
-          <MiniTitle>Sign up to get started!</MiniTitle>
-        </MainWrapper>
-        <Register>
-          <Email placeholder="Username" />
-          <EmailAdd placeholder="Email Address" />
-          <Pass placeholder="Password" />
-          <ConfirmPass placeholder="Confirm Password" />
-        </Register>
-        <SignUp>
-          <SignTitle
-            onPress={() => navigation.navigate(ROUTES.DRAWER_NAVIGATOR)}
-          >
-            Sign Up
-          </SignTitle>
-        </SignUp>
-        <SignApple>
-          <AppleTitle>Sign up using Apple</AppleTitle>
-        </SignApple>
-        <SignGoogle>
-          <GoogleTitle>Sign up using Google</GoogleTitle>
-        </SignGoogle>
-        <Already>
-          <AlreadyTitle
-            onPress={() => navigation.navigate(ROUTES.SIGN_IN_SCREEN)}
-          >
-            Already member? Log in
-          </AlreadyTitle>
-        </Already>
-      </ScrollContainer>
+      <View style={{ paddingHorizontal: 20, marginTop: 50 }}>
+        <Text style={{ fontSize: 24, fontWeight: 600 }}>Create account</Text>
+        <Text style={{ opacity: 0.5, marginTop: 10, fontWeight: 300 }}>
+          Sign up to get started!
+        </Text>
+        <Text style={{ marginTop: 40 }}>Username</Text>
+        <TextInput
+          maxLength={12}
+          value={name}
+          onChangeText={(e) => {
+            setUserCrendetials({ ...userCrendetials, name: e });
+          }}
+          keyboardType="name-phone-pad"
+          style={{
+            borderColor: "#e3e3e3",
+            borderBottomWidth: 2,
+
+            marginTop: 10,
+            fontSize: 20,
+          }}
+        />
+
+        <Text style={{ marginTop: 40 }}>Email</Text>
+        <TextInput
+          value={email}
+          onChangeText={(e) => {
+            setUserCrendetials({ ...userCrendetials, email: e });
+          }}
+          keyboardType="email-address"
+          style={{
+            borderColor: "#e3e3e3",
+            borderBottomWidth: 2,
+            marginTop: 10,
+            fontSize: 20,
+          }}
+        />
+        <Text style={{ marginTop: 40 }}>Password</Text>
+        <View
+          style={{
+            borderColor: "e3e3e3",
+
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItem: "center",
+          }}
+        >
+          <TextInput
+            value={password}
+            onChangeText={(e) => {
+              setUserCrendetials({ ...userCrendetials, password: e });
+            }}
+            secureTextEntry={isVisible}
+            maxLength={12}
+            keyboardType="ascii-capable"
+            style={{
+              borderColor: "#e3e3e3",
+              borderBottomWidth: 2,
+
+              marginTop: 10,
+              fontSize: 20,
+              borderBottomWidth: 2,
+              flex: 1,
+            }}
+          />
+          <Ionicons
+            onPress={() => {
+              setIsVisible(!isVisible);
+            }}
+            name={isVisible == true ? "eye-off-outline" : "eye-outline"}
+            size={24}
+            color="black"
+          />
+        </View>
+      </View>
+      <TouchableOpacity
+        onPress={userAccount}
+        style={{
+          backgroundColor: "green",
+          marginTop: 30,
+          flex: 0.1,
+
+          borderRadius: 40,
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Text style={{ color: "white", fontSize: 20, fontWeight: 400 }}>
+          Sign Up
+        </Text>
+      </TouchableOpacity>
+      <View
+        style={{
+          flexDirection: "row",
+          alignItem: "center",
+          marginTop: 20,
+          paddingHorizontal: 20,
+          gap: 10,
+        }}
+      >
+        <Text
+          style={{
+            fontSize: 15,
+            fontWeight: 600,
+          }}
+        >
+          Already member?
+        </Text>
+        <Text
+          onPress={() => {
+            navigation.navigate(ROUTES.SIGN_IN_SCREEN);
+          }}
+          style={{ fontWeight: 400, color: "blue" }}
+        >
+          Log In
+        </Text>
+      </View>
     </Container>
   );
 };

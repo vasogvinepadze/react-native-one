@@ -1,12 +1,15 @@
 import styled from "styled-components";
 import { useState } from "react";
-import { Pressable, Text } from "react-native";
+import { Alert, Pressable, Text, TextInput, View } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 import * as ROUTES from "../../constants/routes";
 
 import LoginScreenImage from "../images/LoginScreenImage";
 import Button from "../atoms/Button";
 import Screen from "../atoms/Screen";
+import { authentication } from "../../../Firebaseconfig";
 
 const Container = styled.View`
   display: flex;
@@ -43,45 +46,78 @@ const UserName = styled.TextInput`
   height: 40px;
   border-radius: 10px;
   background-color: #edf2f4;
-  width: 250px;
-  padding: 0 10px;
-  font-size: 17px;
-  margin-bottom: 10px;
-`;
-
-const Password = styled.TextInput`
-  height: 40px;
-  border-radius: 10px;
-  background-color: #edf2f4;
-
-  width: 250px;
+  width: 277px;
   padding: 0 10px;
   font-size: 17px;
   margin-bottom: 10px;
 `;
 
 const SignIn = ({ navigation }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [loginCredentials, setLoginCredentials] = useState({
+    email: "",
+    password: "",
+  });
+  const { email, password } = loginCredentials;
+  const [isVisible, setIsVisible] = useState(true);
+
+  const loginUser = () => {
+    signInWithEmailAndPassword(authentication, email, password)
+      .then(() => {
+        Alert.alert("წარმატებით შეხვედით სისტემაში");
+        navigation.navigate(ROUTES.DRAWER_NAVIGATOR);
+      })
+      .catch((err) => {
+        Alert.alert("მომხმარებლის მაილი ან პაროლი არასწორია");
+      });
+  };
   return (
     <Container>
       <Image />
 
       <UserName
         placeholder="Email"
-        onChange={(e) => setEmail(e.nativeEvent.text)}
+        onChangeText={(e) => {
+          setLoginCredentials({ ...loginCredentials, email: e });
+        }}
         value={email}
       />
-      <Password
-        placeholder="Password"
-        onChange={(e) => setPassword(e.nativeEvent.text)}
-        value={password}
-      />
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItem: "center",
+        }}
+      >
+        <TextInput
+          style={{
+            height: 40,
+            borderRadius: 10,
+            backgroundColor: "#edf2f4",
+            flexDirection: "row",
+            width: 250,
+            paddingHorizontal: 10,
+            fontSize: 17,
+            marginBottom: 10,
+          }}
+          placeholder="Password"
+          secureTextEntry={isVisible}
+          keyboardType="ascii-capable"
+          onChangeText={(e) => {
+            setLoginCredentials({ ...loginCredentials, password: e });
+          }}
+          value={password}
+        />
+        <Ionicons
+          onPress={() => {
+            setIsVisible(!isVisible);
+          }}
+          name={isVisible == true ? "eye-off-outline" : "eye-outline"}
+          size={24}
+          color="black"
+        />
+      </View>
 
-      <SignInBtn
-        title="Sign In"
-        onPress={() => navigation.navigate(ROUTES.DRAWER_NAVIGATOR)}
-      />
+      <SignInBtn title="Sign In" onPress={loginUser} />
 
       <SignUpContainer style={{ marginBottom: 20 }}>
         <Text>Forgot password?</Text>
