@@ -13,24 +13,40 @@ const Title = styled.Text`
   color: #1d5c2e;
 `;
 
-const ImagePicker = ({ title, callback }) => {
-  const onPresHandler = async () => {
+const ImagePicker = ({
+  title,
+  callback,
+  children,
+  type = "Bold",
+  fontSize,
+  margin,
+  color,
+  ...otherProps
+}) => {
+  const onPressHandler = async () => {
     const res = await ImgPicker.getMediaLibraryPermissionsAsync();
     if (res.granted) {
-      const launchRes = ImgPicker.launchImageLibraryAsync();
-      callback(launchRes.uri);
+      const launchRes = await ImgPicker.launchImageLibraryAsync();
+      if (!launchRes.canceled) {
+        const selectedAsset = launchRes.assets[0];
+        callback(selectedAsset.uri);
+      }
     } else {
       const requestRes = await ImgPicker.requestMediaLibraryPermissionsAsync();
       if (requestRes) {
         const response = await ImgPicker.launchImageLibraryAsync();
-        callback(response.uri);
+        if (!response.canceled) {
+          const selectedAsset = response.assets[0];
+          callback(selectedAsset.uri);
+        }
       }
     }
   };
 
   return (
-    <Container onPress={onPresHandler}>
-      <Title>{title}</Title>
+    <Container onPress={onPressHandler}>
+      {title && <Text>{title}</Text>}
+      {children}
     </Container>
   );
 };

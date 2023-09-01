@@ -4,6 +4,7 @@ import styled from "styled-components";
 const Container = styled.Pressable`
   height: 40px;
   display: flex;
+
   justify-content: center;
   align-items: center;
   ${({ light }) => (light ? `background - color : #000000` : "")};
@@ -14,7 +15,7 @@ const Title = styled.Text`
   font-size: 16px;
   background: #54924f;
   border-radius: 50px;
-  width: 150px;
+  width: 200px;
   text-align: center;
   height: 25px;
 `;

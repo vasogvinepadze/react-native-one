@@ -1,38 +1,75 @@
-import { View, Text } from "react-native";
+import { View, Pressable, TextInput, ScrollView } from "react-native";
 import React, { useState } from "react";
 import styled from "styled-components";
 import ImagePicker from "../atoms/ImagePicker";
 
-const Container = styled.View``;
-const UserProfile = styled.View`
+import Screen from "../atoms/Screen";
+import SettingDet from "./SettingDet";
+
+const Container = styled(Screen)`
   display: flex;
   align-items: center;
-  padding: 7px;
 `;
-const UserImage = styled.Image``;
-const UserName = styled.Text`
-  margin-top: 10px;
-  margin-bottom: 10px;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 22px;
-  color: #000000;
+const MainInfoContainer = styled.View`
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  justify-content: space-evenly;
 `;
 
-const imgUrl = require("../images/username/userName.png");
+const MainImage = styled.Image`
+  width: 100px;
+  height: 100px;
+  margin: 23px 0 20px 0;
+  border-radius: 50px;
+`;
+const MainTitle = styled.Text``;
 
-const SettingDetails = () => {
-  const [imgUri, setImgUri] = useState(false);
+const SettingsDetails = ({ navigation }) => {
+  const [image, setImage] = useState(null);
+  const [editing, setEditing] = useState(false);
+  const [name, setName] = useState("John Doe");
+
+  const startEditing = () => {
+    setEditing(true);
+  };
+
+  const finishEditing = () => {
+    setEditing(false);
+  };
+  const handleNameChange = (newName) => {
+    setName(newName);
+  };
+
+  const handleImagePick = (pickedImage) => {
+    setImage(pickedImage);
+  };
+
   return (
     <Container>
-      <UserProfile>
-        <UserImage source={imgUri ? { uri: imgUri } : imgUrl} />
-        <UserName>John Doe</UserName>
-        <ImagePicker title="Edit Account" callback={setImgUri} />
-      </UserProfile>
+      <ScrollView>
+        <MainInfoContainer>
+          <MainImage
+            source={image ? { uri: image } : require("../images/userInfo.png")}
+          />
+          {editing ? (
+            <TextInput
+              value={name}
+              onChangeText={handleNameChange}
+              onBlur={finishEditing}
+              autoFocus
+            />
+          ) : (
+            <Pressable onPress={startEditing}>
+              <MainTitle>{name}</MainTitle>
+            </Pressable>
+          )}
+          <ImagePicker title={"EDIT ACCOUNT"} callback={handleImagePick} />
+        </MainInfoContainer>
+        <SettingDet />
+      </ScrollView>
     </Container>
   );
 };
 
-export default SettingDetails;
+export default SettingsDetails;

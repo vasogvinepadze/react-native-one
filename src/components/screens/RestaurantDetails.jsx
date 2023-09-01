@@ -5,7 +5,6 @@ import Screen from "../atoms/Screen";
 import RestDetailsCard from "../organisms/RestDetailsCard";
 
 import * as ROUTES from "../../constants/routes";
-import { log } from "react-native-reanimated";
 
 const MainContainer = styled.Pressable``;
 
@@ -202,10 +201,10 @@ const RestaurantDetails = ({ navigation, onPress }) => {
               Group Order
             </GroupTitle>
           </Group>
-          <Delivery>
+          {/* <Delivery>
             <DeliveryRight>Delivery 25 - 35 min 1.7mi</DeliveryRight>
             <DeliveryLeft>Pickup 5 - 15 min 1.7mi</DeliveryLeft>
-          </Delivery>
+          </Delivery> */}
         </HeaderContainer>
         <SectionContainer>
           <Popular>Most Popular</Popular>
